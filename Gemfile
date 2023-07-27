@@ -49,6 +49,7 @@ end
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem 'webmock', '~> 3.18', '>= 3.18.1'
 end
 group :test do
   gem "capybara"
