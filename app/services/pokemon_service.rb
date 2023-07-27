@@ -1,6 +1,6 @@
 # Purpose: To make API calls to the PokeAPI
 class PokemonService
-
+  include HTTParty
   def initialize
     self.class.base_uri Rails.configuration.pokeapi_base_url
   end
