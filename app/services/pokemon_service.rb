@@ -1,45 +1,25 @@
-# Purpose: To make API calls to the PokeAPI
 class PokemonService
-  include HTTParty
-  def initialize
-    self.class.base_uri Rails.configuration.pokeapi_base_url
-  end
-
   def get_all_pokemon_names
-    response = self.class.get('/pokemon')
-    JSON.parse(response.body)["results"]
-  end
-
-  def get_all_pokemon_types
-    response = self.class.get('/type')
-    JSON.parse(response.body)["results"]
+    response = PokeApi.get(pokemon: {})
+    response.results
   end
 
   def get_pokemon_by_name(name)
-    response = self.class.get("/pokemon/#{name}")
-    JSON.parse(response.body)
-  end
-
-  def get_pokemon_by_type(type)
-    response = self.class.get("/type/#{type}")
-    JSON.parse(response.body)
-  end
-
-  def get_pokemon_by_id(id)
-    response = self.class.get("/pokemon/#{id}")
-    JSON.parse(response.body)
-  end
-
-  def get_pokemon_ability(ability)
-    response = self.class.get("/ability/#{ability}")
-    JSON.parse(response.body)
+    PokeApi.get(pokemon: name)
   end
 
   def pokemon_attributes(pokemon_id)
-    full_attributes = get_pokemon_by_id(pokemon_id)
-    filtered_attributes = full_attributes.slice("name", "base_experience", "height", "weight", "order", "is_default")
-    abilities = full_attributes["abilities"]
-    list_of_abilities = abilities.map { |ability| get_pokemon_ability(ability["ability"]["name"]) }
+    full_attributes = get_pokemon_by_name(pokemon_id)
+    filtered_attributes = {
+      "name" => full_attributes.name,
+      "base_experience" => full_attributes.base_experience,
+      "height" => full_attributes.height,
+      "weight" => full_attributes.weight,
+      "order" => full_attributes.order,
+      "is_default" => full_attributes.is_default
+    }
+    abilities = full_attributes.abilities
+    list_of_abilities = abilities.map { |ability| ability.ability.name }
     filtered_attributes.merge(abilities: list_of_abilities)
   end
 end

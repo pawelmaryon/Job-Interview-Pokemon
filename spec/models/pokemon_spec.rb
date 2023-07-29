@@ -2,9 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Pokemon, type: :model do
   let(:pokemon_service) { instance_double(PokemonService) }
-  let(:pokemon_data) { { 'name' => 'bulbasaur', 'types' => [{'type' => { 'name' => 'grass' }}] } }
-
+  let(:type_name) { double('Type', name: 'grass') }
+  let(:type) { double('PokeApi::Type', type: type_name) }
+  let(:pokemon_data) { double('PokeApi::Pokemon', name: 'bulbasaur', types: [type]) }
+  
   before do
+    stub_request(:get, "https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0")
+      .to_return(status: 200, body: { results: [{ name: 'bulbasaur' }, { name: 'pikachu' } ] }.to_json)
+
     allow(PokemonService).to receive(:new).and_return(pokemon_service)
     allow(pokemon_service).to receive(:get_all_pokemon_names).and_return([pokemon_data])
     allow(pokemon_service).to receive(:get_pokemon_by_name).with('bulbasaur').and_return(pokemon_data)
@@ -23,7 +28,7 @@ RSpec.describe Pokemon, type: :model do
     it 'saves pokemon types to the database' do
       expect { pokemon.save_pokemon_types_to_db }.to change { Type.count }.from(0).to(1)
       expect(Type.first.name).to eq('grass')
-      expect(Type.first.pokemon).to eq(pokemon)
+      expect(Type.first.pokemons).to include(pokemon)
     end
   end
 end
