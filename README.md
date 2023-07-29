@@ -69,9 +69,7 @@ To start server on Linux:
 `brew install mariadb`
 3. start MariaDB server
 `mysql.server start`
-4. To ensure MariaDB starts every time your system boots
-`brew services start mariadb`
-5. To get information about the installed MariaDB package
+4. To get information about the installed MariaDB package
 `brew info mariadb`
 
 * Database creation
