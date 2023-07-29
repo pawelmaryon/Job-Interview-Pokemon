@@ -82,3 +82,7 @@ To start server on Linux:
 * Services
  - ### Service fetching Pokemons
  `app/services/pokemon_service.rb` 
+
+**API Dokumentation**
+1. rswag gem installed - [rswag](https://github.com/rswag/rswag)
+2. To check API documentation run `rails server` and got to `localhost:3000/api-docs`
