@@ -34,4 +34,12 @@ class PokemonService
     response = self.class.get("/ability/#{ability}")
     JSON.parse(response.body)
   end
+
+  def pokemon_attributes(pokemon_id)
+    full_attributes = get_pokemon_by_id(pokemon_id)
+    filtered_attributes = full_attributes.slice("name", "base_experience", "height", "weight", "order", "is_default")
+    abilities = full_attributes["abilities"]
+    list_of_abilities = abilities.map { |ability| get_pokemon_ability(ability["ability"]["name"]) }
+    filtered_attributes.merge(abilities: list_of_abilities)
+  end
 end
