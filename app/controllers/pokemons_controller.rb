@@ -1,9 +1,9 @@
 class PokemonsController < ApplicationController
+  @@database_populated = false
+
+  before_action :populate_db
+  
   def index
-    if Pokemon.all.empty?
-      Pokemon.save_pokemon_names_to_db
-      Pokemon.save_pokemon_types_to_db
-    end
     pokemons = Pokemon.all
     render json: pokemons, only: %i[id name], include: :types
   end
@@ -17,5 +17,16 @@ class PokemonsController < ApplicationController
     else
       render json: { error: 'Pokemon not found' }, status: :not_found
     end
+  end
+
+  private
+
+  def populate_db
+    return if @@database_populated
+    if Pokemon.all.empty?
+      Pokemon.save_pokemon_names_to_db
+      Pokemon.save_pokemon_types_to_db
+    end
+    @@database_populated = true
   end
 end
