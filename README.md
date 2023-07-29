@@ -59,7 +59,7 @@ Choose a distribution
 and follow the steps that will appear below*.
 To start server on Linux:
  - `sudo service mariadb start`
- or
+or
  - `sudo systemctl start mariadb`
 ## Mac
 ### To install MariaDB on Mac you can use Homebrew package manager
@@ -85,4 +85,12 @@ To start server on Linux:
 
 **API Dokumentation**
 1. rswag gem installed - [rswag](https://github.com/rswag/rswag)
-2. To check API documentation run `rails server` and got to `localhost:3000/api-docs`
+2. To update Swagger definition run `rake rswag:specs:swaggerize`
+3. To check API documentation run `rails server` and got to `localhost:3000/api-docs`, all endpoints are there
+## Consuming API:
+There are two endpoints
+1. List all pokemons using curl:
+ - to get list of all pokemons run in your terminal `curl http://localhost:3000/pokemons`
+ - to get specific pokemon run in your terminal `curl http://localhost:3000/pokemons/{id}`
+2. List all pokemon using [posytman](https://www.postman.com/)
+ -  

@@ -59,63 +59,8 @@ paths:
                 required:
                 - id
                 - name
-  "/types":
-    get:
-      summary: Retrieves all Pokemon types
-      responses:
-        '200':
-          description: Types found
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  properties:
-                    id:
-                      type: integer
-                    name:
-                      type: string
-                    pokemons:
-                      type: array
-                      items:
-                        properties:
-                          name:
-                            type: string
-                  required:
-                  - id
-                  - name
-  "/types/{id}":
-    get:
-      summary: Retrieve a Type by id
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-      responses:
-        '200':
-          description: Type found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  pokemons:
-                    type: array
-                    items:
-                      properties:
-                        name:
-                          type: string
-                required:
-                - id
-                - name
 servers:
-- url: https://{defaultHost}
+- url: http://{defaultHost}
   variables:
     defaultHost:
-      default: www.example.com
+      default: localhost:3000/
