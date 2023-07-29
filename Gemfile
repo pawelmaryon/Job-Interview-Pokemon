@@ -39,11 +39,15 @@ gem "bootsnap", require: false
 #consuming restful web services
 gem 'httparty', '~> 0.21.0'
 
+gem 'rswag-api'
+gem 'rswag-ui'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'rspec-rails', '~> 6.0.0'
   gem 'byebug', group: :development
+  gem 'rswag-specs'
 end
 
 group :development do
