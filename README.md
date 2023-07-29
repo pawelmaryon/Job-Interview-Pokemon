@@ -79,9 +79,11 @@ or
 * How to run the test suite:
  - `bundle exec rspec`
 
-* Services
+* Services created using Rails conventions
  - ### Service fetching Pokemons
- `app/services/pokemon_service.rb` 
+  `app/services/pokemon_service.rb` 
+ - ### View Objects for Presentation Logic
+moving presentation logic to `app/presenters/pokemon_presenter.rb`, [here](https://www.rubyguides.com/2019/09/rails-patterns-presenter-service/) is a great resource to understand how it works.
 
 **API Dokumentation**
 1. rswag gem installed - [rswag](https://github.com/rswag/rswag)
