@@ -93,4 +93,5 @@ There are two endpoints
  - to get list of all pokemons run in your terminal `curl http://localhost:3000/pokemons`
  - to get specific pokemon run in your terminal `curl http://localhost:3000/pokemons/{id}`
 2. List all pokemon using [posytman](https://www.postman.com/)
- -  
+ - type in the input field `http://localhost:3000/pokemons` select `GET` request and press `SEND`
+ - to get specific pokemon `http://localhost:3000/pokemons{id}` select `GET` request and press `SEND`, where *id* is dynamic it can me any number thats on the list of all pokemons

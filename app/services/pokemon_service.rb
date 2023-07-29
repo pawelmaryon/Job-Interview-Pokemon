@@ -29,4 +29,9 @@ class PokemonService
     response = self.class.get("/pokemon/#{id}")
     JSON.parse(response.body)
   end
+
+  def get_pokemon_ability(ability)
+    response = self.class.get("/ability/#{ability}")
+    JSON.parse(response.body)
+  end
 end
