@@ -66,6 +66,43 @@ RSpec.describe "Pokemons", type: :request do
     end
   end
 
+  describe 'private method #populate_db' do
+    context 'when database is empty' do
+      before do
+        # Reset the @@database_populated variable
+        PokemonsController.class_variable_set(:@@database_populated, false)
+
+        allow(Pokemon).to receive(:all).and_return([])
+        allow(Pokemon).to receive(:save_pokemon_names_to_db)
+        allow(Pokemon).to receive(:save_pokemon_types_to_db)
+      end
+
+      it 'populates the database' do
+        PokemonsController.new.send(:populate_db)
+        expect(Pokemon).to have_received(:save_pokemon_names_to_db)
+        expect(Pokemon).to have_received(:save_pokemon_types_to_db)
+      end
+    end
+
+    # Do the same for the 'when database is not empty' context
+    context 'when database is not empty' do
+      before do
+        # Reset the @@database_populated variable
+        PokemonsController.class_variable_set(:@@database_populated, false)
+
+        allow(Pokemon).to receive(:all).and_return([double(Pokemon)])
+        allow(Pokemon).to receive(:save_pokemon_names_to_db)
+        allow(Pokemon).to receive(:save_pokemon_types_to_db)
+      end
+
+      it 'does not populate the database' do
+        PokemonsController.new.send(:populate_db)
+        expect(Pokemon).not_to have_received(:save_pokemon_names_to_db)
+        expect(Pokemon).not_to have_received(:save_pokemon_types_to_db)
+      end
+    end
+  end
+
   describe 'Pokemons API' do
     path '/pokemons' do
       get 'Retrieves all Pokemon' do
@@ -99,7 +136,7 @@ RSpec.describe "Pokemons", type: :request do
         parameter name: :id, in: :path, type: :integer
 
         response '200', 'Pokemon found' do
-          schema type: :object,
+          schema type: :array,
             properties: {
               id: { type: :integer },
               name: { type: :string },

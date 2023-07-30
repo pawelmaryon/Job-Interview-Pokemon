@@ -44,7 +44,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                type: array
                 properties:
                   id:
                     type: integer
@@ -59,6 +59,8 @@ paths:
                 required:
                 - id
                 - name
+        '404':
+          description: Pokemon not found
 servers:
 - url: http://{defaultHost}
   variables:
