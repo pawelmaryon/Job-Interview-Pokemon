@@ -65,15 +65,41 @@ RSpec.describe "Pokemons", type: :request do
       end
     end
   end
-end
 
-describe 'Pokemons API' do
-  path '/pokemons' do
-    get 'Retrieves all Pokemon' do
-      produces 'application/json'
-      response '200', 'Pokemon found' do
-        schema type: :array,
-          items: {
+  describe 'Pokemons API' do
+    path '/pokemons' do
+      get 'Retrieves all Pokemon' do
+        produces 'application/json'
+        response '200', 'Pokemon found' do
+          schema type: :array,
+            items: {
+              properties: {
+                id: { type: :integer },
+                name: { type: :string },
+                types: { 
+                  type: :array,
+                  items: {
+                    properties: {
+                      name: { type: :string }
+                    }
+                  }
+                }
+              },
+              required: [ 'id', 'name' ]
+            }
+
+          run_test!
+        end
+      end
+    end
+
+    path '/pokemons/{id}' do
+      get 'Retrieve a Pokemon by id' do
+        produces 'application/json'
+        parameter name: :id, in: :path, type: :integer
+
+        response '200', 'Pokemon found' do
+          schema type: :object,
             properties: {
               id: { type: :integer },
               name: { type: :string },
@@ -87,44 +113,18 @@ describe 'Pokemons API' do
               }
             },
             required: [ 'id', 'name' ]
-          }
 
-        run_test!
-      end
-    end
-  end
+            let(:id) do
+              types = ['grass'].map { |type_name| Type.find_or_create_by(name: type_name) }
+              Pokemon.create(name: 'bulbasaur', types: types).id
+            end
+          run_test!
+        end
 
-  path '/pokemons/{id}' do
-    get 'Retrieve a Pokemon by id' do
-      produces 'application/json'
-      parameter name: :id, in: :path, type: :integer
-
-      response '200', 'Pokemon found' do
-        schema type: :object,
-          properties: {
-            id: { type: :integer },
-            name: { type: :string },
-            types: { 
-              type: :array,
-              items: {
-                properties: {
-                  name: { type: :string }
-                }
-              }
-            }
-          },
-          required: [ 'id', 'name' ]
-
-          let(:id) do
-            types = ['grass'].map { |type_name| Type.find_or_create_by(name: type_name) }
-            Pokemon.create(name: 'bulbasaur', types: types).id
-          end
-        run_test!
-      end
-
-      response '404', 'Pokemon not found' do
-        let(:id) { 0 }
-        run_test!
+        response '404', 'Pokemon not found' do
+          let(:id) { 0 }
+          run_test!
+        end
       end
     end
   end
