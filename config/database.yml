@@ -15,8 +15,9 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password: 'Pokemon'
-  socket: /var/run/mysqld/mysqld.sock
-
+  port: 3306
+  host: localhost
+  
 development:
   <<: *default
   database: PokemonApp_development
