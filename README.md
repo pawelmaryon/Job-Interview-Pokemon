@@ -2,7 +2,7 @@
 
 
 **Ruby version: ruby "3.2.2"**
-To install ruby "3.2.2" Follow steps below:
+To install ruby "3.2.2" Follow the steps below:
 ### Steps for package manager
 ## rbenv
 1. Update your package list
@@ -36,14 +36,14 @@ To install ruby "3.2.2" Follow steps below:
   `ruby -v`
 
 **Clone repository**
-1. hoose the way you want to clone it
+1. Choose the way you want to clone it
 ### HTTPS
 `git clone https://github.com/pawelmaryon/Job-Interview-Pokemon.git`
 
 ### SSH key
  `git clone git@github.com:pawelmaryon/Job-Interview-Pokemon.git`
 
-2. Install bunndler
+2. Install bundler
   `gem install bundler`
 
 3. Install all the gem dependencies for the Rails application
@@ -55,15 +55,14 @@ To install ruby "3.2.2" Follow steps below:
 **Database initialization**
 ## Linux
 *To download and install MariaDB on linux go to https://mariadb.org/download/?t=repo-config&d=20.04+%22focal%22&v=10.5&r_m=xtom_ams
-Choose a distribution
-and follow the steps that will appear below*.
+Choose a distribution and follow the steps that appear*.
 To start server on Linux:
  - `sudo service mariadb start`
 or
  - `sudo systemctl start mariadb`
 ## Mac
 ### To install MariaDB on Mac you can use Homebrew package manager
-1. install homebrew if you dont have it already installed
+1. Install Homebrew if you don't have it already installed
 `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 2. next install MariaDB
 `brew install mariadb`
@@ -75,25 +74,27 @@ or
 * Database creation
   - `rails db:create`
   - `rails db:migrate`
+* Droping database
+ - `rails db:drop`
 
 * How to run the test suite:
  - `bundle exec rspec`
 
 * Services created using Rails conventions
- - ### Service fetching Pokemons
+ - ### Service for fetching Pokemons
   `app/services/pokemon_service.rb` 
  - ### View Objects for Presentation Logic
 moving presentation logic to `app/presenters/pokemon_presenter.rb`, [here](https://www.rubyguides.com/2019/09/rails-patterns-presenter-service/) is a great resource to understand how it works.
 
-**API Dokumentation**
-1. rswag gem installed - [rswag](https://github.com/rswag/rswag)
+**API Documentation**
+1. rswag gem installed - [rswag](https://github.com/rswag/rswag).
 2. To update Swagger definition run `rake rswag:specs:swaggerize`
-3. To check API documentation run `rails server` and got to `localhost:3000/api-docs`, all endpoints are there
+3. To check API documentation run `rails server` and got to `localhost:3000/api-docs`, all endpoints are there.
 ## Consuming API:
 There are two endpoints
 1. List all pokemons using curl:
  - to get list of all pokemons run in your terminal `curl http://localhost:3000/pokemons`
  - to get specific pokemon run in your terminal `curl http://localhost:3000/pokemons/{id}`
-2. List all pokemon using [posytman](https://www.postman.com/)
+2. List all Pokemon using [Postman](https://www.postman.com/)
  - type in the input field `http://localhost:3000/pokemons` select `GET` request and press `SEND`
- - to get specific pokemon `http://localhost:3000/pokemons{id}` select `GET` request and press `SEND`, where *id* is dynamic it can me any number thats on the list of all pokemons
+ - to get specific pokemon `http://localhost:3000/pokemons{id}` select `GET` request and press `SEND`, where *id* is dynamic 'it can be any number that's on the list of all Pokemons.
