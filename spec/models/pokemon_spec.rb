@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Pokemon, type: :model do
+  it { should validate_presence_of(:name) }
+  it { should validate_uniqueness_of(:name) }
+  it { should have_and_belong_to_many(:types) }
   let(:pokemon_service) { instance_double(PokemonService) }
   let(:type_name) { double('Type', name: 'grass') }
   let(:type) { double('PokeApi::Type', type: type_name) }

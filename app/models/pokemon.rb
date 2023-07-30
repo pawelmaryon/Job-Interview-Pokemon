@@ -1,4 +1,6 @@
 class Pokemon < ApplicationRecord
+  validates :name, uniqueness: { case_sensitive: true }, presence: true
+
   has_and_belongs_to_many :types
 
   def self.save_pokemon_names_to_db
