@@ -36,5 +36,11 @@ module PokemonApp
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.pokeapi_base_url = 'https://pokeapi.co/api/v2/'
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'localhost:3000'  # or '*' to allow requests from any origin
+        resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head]
+      end
+    end
   end
 end
